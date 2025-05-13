@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OutputVisualizer from "./OutputVisualizer";
+import { palette, sharedStyles } from '../../styles/theme';
 
 const FIELD_TYPES = ["string", "number", "boolean"];
 
@@ -84,41 +85,41 @@ function EntityExtractor({ templates, saveTemplates }) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)',
-      fontFamily: 'Inter, Arial, sans-serif',
-      color: '#222',
+      background: `linear-gradient(135deg, ${palette.background} 0%, ${palette.backgroundAlt} 100%)`,
+      fontFamily: sharedStyles.fontFamily,
+      color: palette.text,
       padding: 0,
       margin: 0
     }}>
       <header style={{
-        background: '#fff',
+        background: palette.card,
         boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
         padding: '32px 0 16px 0',
         marginBottom: 32,
         textAlign: 'center',
-        borderBottom: '1px solid #e5e7eb',
-        display: 'none' // Hide header, now handled in App.js
+        borderBottom: `1px solid ${palette.border}`,
+        display: 'none'
       }}>
         {/* Header removed, now in App.js */}
       </header>
       <main style={{
         maxWidth: 900,
         margin: '0 auto',
-        background: '#fff',
-        borderRadius: 16,
-        boxShadow: '0 4px 32px rgba(0,0,0,0.07)',
-        padding: 48,
-        marginBottom: 48
+        background: palette.card,
+        borderRadius: sharedStyles.cardRadius,
+        boxShadow: palette.cardShadow,
+        padding: sharedStyles.cardPadding,
+        marginBottom: sharedStyles.cardMarginBottom
       }}>
         <div style={{
           marginBottom: 28,
-          border: '1px solid #e2e8f0',
+          border: `1px solid ${palette.border}`,
           borderRadius: 12,
-          background: '#f8fafc',
+          background: palette.background,
           padding: 18,
           boxSizing: 'border-box'
         }}>
-          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Templates</label>
+          <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Templates</label>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
             <select
               onChange={e => {
@@ -127,11 +128,11 @@ function EntityExtractor({ templates, saveTemplates }) {
               }}
               value=""
               style={{
-                border: '1px solid #cbd5e1',
+                border: `1px solid ${palette.borderAlt}`,
                 borderRadius: 6,
                 padding: '8px 12px',
                 fontSize: 15,
-                background: '#fff',
+                background: palette.card,
                 minWidth: 180
               }}
             >
@@ -146,23 +147,23 @@ function EntityExtractor({ templates, saveTemplates }) {
               value={templateName}
               onChange={e => setTemplateName(e.target.value)}
               style={{
-                border: '1px solid #cbd5e1',
+                border: `1px solid ${palette.borderAlt}`,
                 borderRadius: 6,
                 padding: '8px 12px',
                 fontSize: 15,
-                background: '#fff',
+                background: palette.card,
                 minWidth: 180
               }}
             />
             <button
               onClick={saveCurrentTemplate}
               style={{
-                background: '#2563eb',
-                color: '#fff',
+                background: palette.primary,
+                color: palette.card,
                 border: 'none',
                 borderRadius: 6,
                 padding: '8px 18px',
-                fontWeight: 600,
+                fontWeight: sharedStyles.fontWeightBold,
                 fontSize: 15,
                 boxShadow: '0 1px 4px rgba(37,99,235,0.08)'
               }}
@@ -173,13 +174,13 @@ function EntityExtractor({ templates, saveTemplates }) {
         </div>
         <div style={{
           marginBottom: 28,
-          border: '1px solid #e2e8f0',
+          border: `1px solid ${palette.border}`,
           borderRadius: 12,
-          background: '#f8fafc',
+          background: palette.background,
           padding: 18,
           boxSizing: 'border-box'
         }}>
-          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Define Entity Schema</label>
+          <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Define Entity Schema</label>
           {fields.map((field, idx) => (
             <div key={idx} style={{
               display: 'flex',
@@ -194,11 +195,11 @@ function EntityExtractor({ templates, saveTemplates }) {
                 onChange={e => updateField(idx, "name", e.target.value)}
                 style={{
                   flex: 2,
-                  border: '1px solid #cbd5e1',
+                  border: `1px solid ${palette.borderAlt}`,
                   borderRadius: 6,
                   padding: 8,
                   fontSize: 15,
-                  background: '#fff'
+                  background: palette.card
                 }}
               />
               <select
@@ -206,11 +207,11 @@ function EntityExtractor({ templates, saveTemplates }) {
                 onChange={e => updateField(idx, "type", e.target.value)}
                 style={{
                   flex: 1,
-                  border: '1px solid #cbd5e1',
+                  border: `1px solid ${palette.borderAlt}`,
                   borderRadius: 6,
                   padding: 8,
                   fontSize: 15,
-                  background: '#fff'
+                  background: palette.card
                 }}
               >
                 {FIELD_TYPES.map(t => (
@@ -223,14 +224,14 @@ function EntityExtractor({ templates, saveTemplates }) {
                 onChange={e => updateField(idx, "description", e.target.value)}
                 style={{
                   flex: 3,
-                  border: '1px solid #cbd5e1',
+                  border: `1px solid ${palette.borderAlt}`,
                   borderRadius: 6,
                   padding: 8,
                   fontSize: 15,
-                  background: '#fff'
+                  background: palette.card
                 }}
               />
-              <label style={{ flex: 1, fontSize: 14, color: '#475569', display: 'flex', alignItems: 'center', gap: 4 }}>
+              <label style={{ flex: 1, fontSize: 14, color: palette.textSecondary, display: 'flex', alignItems: 'center', gap: 4 }}>
                 <input
                   type="checkbox"
                   checked={field.required}
@@ -243,12 +244,12 @@ function EntityExtractor({ templates, saveTemplates }) {
                 onClick={() => removeField(idx)}
                 disabled={fields.length === 1}
                 style={{
-                  background: '#f87171',
-                  color: '#fff',
+                  background: palette.danger,
+                  color: palette.card,
                   border: 'none',
                   borderRadius: 6,
                   padding: '7px 14px',
-                  fontWeight: 600,
+                  fontWeight: sharedStyles.fontWeightBold,
                   cursor: fields.length === 1 ? 'not-allowed' : 'pointer',
                   opacity: fields.length === 1 ? 0.5 : 1,
                   transition: 'opacity 0.2s'
@@ -261,12 +262,12 @@ function EntityExtractor({ templates, saveTemplates }) {
           <button
             onClick={addField}
             style={{
-              background: '#2563eb',
-              color: '#fff',
+              background: palette.primary,
+              color: palette.card,
               border: 'none',
               borderRadius: 6,
               padding: '8px 18px',
-              fontWeight: 600,
+              fontWeight: sharedStyles.fontWeightBold,
               fontSize: 15,
               marginTop: 6,
               cursor: 'pointer',
@@ -278,23 +279,23 @@ function EntityExtractor({ templates, saveTemplates }) {
         </div>
         <div style={{
           marginBottom: 28,
-          border: '1px solid #e2e8f0',
+          border: `1px solid ${palette.border}`,
           borderRadius: 12,
-          background: '#f8fafc',
+          background: palette.background,
           padding: 18,
           boxSizing: 'border-box'
         }}>
-          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
+          <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
           <input
             type="file"
             onChange={e => setInputFile(e.target.files[0])}
             style={{
               width: '100%',
-              border: '1px solid #cbd5e1',
-              borderRadius: 8,
+              border: `1px solid ${palette.borderAlt}`,
+              borderRadius: sharedStyles.borderRadius,
               padding: 10,
               fontSize: 16,
-              background: '#f1f5f9',
+              background: palette.inputBackground,
               marginTop: 4,
               boxSizing: 'border-box'
             }}
@@ -304,12 +305,12 @@ function EntityExtractor({ templates, saveTemplates }) {
           onClick={handleSubmit}
           disabled={loading}
           style={{
-            background: loading ? '#a5b4fc' : '#2563eb',
-            color: '#fff',
+            background: loading ? palette.primaryLight : palette.primary,
+            color: palette.card,
             border: 'none',
-            borderRadius: 8,
+            borderRadius: sharedStyles.borderRadius,
             padding: '12px 32px',
-            fontWeight: 700,
+            fontWeight: sharedStyles.fontWeightBold,
             fontSize: 17,
             cursor: loading ? 'not-allowed' : 'pointer',
             boxShadow: '0 2px 8px rgba(37,99,235,0.08)',
@@ -320,7 +321,7 @@ function EntityExtractor({ templates, saveTemplates }) {
           {loading ? "Processing..." : "Submit"}
         </button>
         <div style={{ margin: '32px 0 0 0' }}>
-          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Output Result</label>
+          <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Output Result</label>
           {output && (
             <OutputVisualizer output={output} />
           )}
@@ -328,7 +329,7 @@ function EntityExtractor({ templates, saveTemplates }) {
       </main>
       <footer style={{
         textAlign: 'center',
-        color: '#64748b',
+        color: palette.textSecondary,
         fontSize: 15,
         padding: '24px 0 12px 0',
         background: 'none'

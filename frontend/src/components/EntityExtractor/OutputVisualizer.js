@@ -1,17 +1,18 @@
 import React from "react";
+import { palette, sharedStyles } from '../../styles/theme';
 
 function OutputVisualizer({ output }) {
   let parsed;
   try {
     parsed = JSON.parse(output);
   } catch {
-    return <div style={{ color: 'red', fontWeight: 500 }}>{output}</div>;
+    return <div style={{ color: palette.danger, fontWeight: sharedStyles.fontWeightBold }}>{output}</div>;
   }
   if (typeof parsed === 'string') {
     try {
       parsed = JSON.parse(parsed);
     } catch {
-      return <div style={{ color: 'green', fontWeight: 500 }}>{parsed}</div>;
+      return <div style={{ color: 'green', fontWeight: sharedStyles.fontWeightBold }}>{parsed}</div>;
     }
   }
   if (parsed && typeof parsed === 'object' && parsed.result) {
@@ -22,7 +23,7 @@ function OutputVisualizer({ output }) {
     }
   }
   if (!parsed || typeof parsed !== 'object') {
-    return <div style={{ color: 'green', fontWeight: 500 }}>{String(parsed)}</div>;
+    return <div style={{ color: 'green', fontWeight: sharedStyles.fontWeightBold }}>{String(parsed)}</div>;
   }
   const entries = Object.entries(parsed);
   if (!entries.length) return <div>No data extracted.</div>;
@@ -30,22 +31,22 @@ function OutputVisualizer({ output }) {
     <table style={{
       width: '100%',
       borderCollapse: 'collapse',
-      background: '#f6f8fa',
-      border: '1px solid #e1e4e8',
-      borderRadius: 8,
+      background: palette.backgroundAlt,
+      border: `1px solid ${palette.tableBorder}`,
+      borderRadius: sharedStyles.borderRadius,
       marginTop: 8
     }}>
       <thead>
-        <tr style={{ background: '#eaecef' }}>
-          <th style={{ textAlign: 'left', padding: 8, border: '1px solid #e1e4e8' }}>Field</th>
-          <th style={{ textAlign: 'left', padding: 8, border: '1px solid #e1e4e8' }}>Value</th>
+        <tr style={{ background: palette.tableHeader }}>
+          <th style={{ textAlign: 'left', padding: 8, border: `1px solid ${palette.tableBorder}` }}>Field</th>
+          <th style={{ textAlign: 'left', padding: 8, border: `1px solid ${palette.tableBorder}` }}>Value</th>
         </tr>
       </thead>
       <tbody>
         {entries.map(([key, value]) => (
           <tr key={key}>
-            <td style={{ padding: 8, border: '1px solid #e1e4e8', fontWeight: 500 }}>{key}</td>
-            <td style={{ padding: 8, border: '1px solid #e1e4e8' }}>{String(value)}</td>
+            <td style={{ padding: 8, border: `1px solid ${palette.tableBorder}`, fontWeight: sharedStyles.fontWeightBold }}>{key}</td>
+            <td style={{ padding: 8, border: `1px solid ${palette.tableBorder}` }}>{String(value)}</td>
           </tr>
         ))}
       </tbody>
