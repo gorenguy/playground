@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { palette, sharedStyles } from './styles/theme';
 import EntityExtractor from "./components/EntityExtractor/EntityExtractor";
 import TemplatesManager from "./components/TemplatesManager/TemplatesManager";
 
@@ -20,20 +21,20 @@ function App() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: '#fff',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+        background: palette.card,
+        boxShadow: palette.cardShadow,
         padding: '0 40px',
         height: 72,
-        borderBottom: '1px solid #e5e7eb',
+        borderBottom: `1px solid ${palette.border}`,
         position: 'sticky',
         top: 0,
         zIndex: 10
       }}>
         <span style={{
-          fontWeight: 800,
+          fontWeight: sharedStyles.fontWeightHeader,
           fontSize: 28,
           letterSpacing: -1,
-          color: '#2563eb',
+          color: palette.primary,
         }}>
           Entity Extractor
         </span>
@@ -41,12 +42,12 @@ function App() {
           <button
             onClick={() => setScreen("extract")}
             style={{
-              background: screen === "extract" ? '#2563eb' : 'transparent',
-              color: screen === "extract" ? '#fff' : '#222',
+              background: screen === "extract" ? palette.primary : 'transparent',
+              color: screen === "extract" ? palette.buttonText : palette.text,
               border: 'none',
               borderRadius: 6,
               padding: '8px 20px',
-              fontWeight: 600,
+              fontWeight: sharedStyles.fontWeightBold,
               fontSize: 16,
               cursor: 'pointer',
               transition: 'background 0.2s, color 0.2s'
@@ -57,12 +58,12 @@ function App() {
           <button
             onClick={() => setScreen("templates")}
             style={{
-              background: screen === "templates" ? '#2563eb' : 'transparent',
-              color: screen === "templates" ? '#fff' : '#222',
+              background: screen === "templates" ? palette.primary : 'transparent',
+              color: screen === "templates" ? palette.buttonText : palette.text,
               border: 'none',
               borderRadius: 6,
               padding: '8px 20px',
-              fontWeight: 600,
+              fontWeight: sharedStyles.fontWeightBold,
               fontSize: 16,
               cursor: 'pointer',
               transition: 'background 0.2s, color 0.2s'
