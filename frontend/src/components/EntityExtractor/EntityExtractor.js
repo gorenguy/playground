@@ -97,10 +97,24 @@ function EntityExtractor({ templates, saveTemplates }) {
         padding: '32px 0 16px 0',
         marginBottom: 32,
         textAlign: 'center',
-        borderBottom: `1px solid ${palette.border}`,
-        display: 'none'
+        borderBottom: `1px solid ${palette.border}`
       }}>
-        {/* Header removed, now in App.js */}
+        <h1 style={{
+          fontWeight: sharedStyles.fontWeightHeader,
+          fontSize: 36,
+          letterSpacing: -1,
+          margin: 0,
+          color: palette.text
+        }}>
+          Extraction
+        </h1>
+        <div style={{
+          fontSize: 18,
+          color: palette.textSecondary,
+          marginTop: 8
+        }}>
+          Extract entities from your files using a custom schema
+        </div>
       </header>
       <main style={{
         maxWidth: 900,
