@@ -12,7 +12,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "docker-compose -f docker-compose-dev.yml up --build backend-dev frontend-dev",
+    "dev": "docker-compose -f ../docker-compose-dev.yml up --build backend-dev frontend-dev",
     "prod": "docker-compose up backend frontend"
   },
   "proxy": "http://backend:8000",
