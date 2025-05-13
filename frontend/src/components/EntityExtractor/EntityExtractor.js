@@ -108,7 +108,8 @@ function EntityExtractor() {
               fontFamily: 'inherit',
               background: '#f1f5f9',
               resize: 'vertical',
-              marginTop: 4
+              marginTop: 4,
+              boxSizing: 'border-box'
             }}
             value={inputText}
             onChange={e => setInputText(e.target.value)}
@@ -119,7 +120,8 @@ function EntityExtractor() {
           border: '1px solid #e2e8f0',
           borderRadius: 12,
           background: '#f8fafc',
-          padding: 18
+          padding: 18,
+          boxSizing: 'border-box'
         }}>
           <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Define Entity Schema</label>
           {fields.map((field, idx) => (
