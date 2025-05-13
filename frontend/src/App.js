@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EntityExtractor from "./EntityExtractor";
+import EntityExtractor from "./components/EntityExtractor/EntityExtractor";
 
 function App() {
   return (
