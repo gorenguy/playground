@@ -3,8 +3,8 @@
 // Centralized color palette and shared style constants
 
 export const palette = {
-  primary: '#2563eb',
-  primaryLight: '#a5b4fc',
+  primary: '#6ea8de', // deeper but soft blue
+  primaryLight: '#b3d1f7', // lighter soft blue
   danger: '#f87171',
   background: '#f8fafc',
   backgroundAlt: '#e0e7ef',

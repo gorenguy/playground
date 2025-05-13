@@ -2,28 +2,9 @@ import { useState } from "react";
 import { palette, sharedStyles } from '../../styles/theme';
 
 function TemplatesManager({ templates, saveTemplates }) {
-  const [editingIdx, setEditingIdx] = useState(null);
-  const [editName, setEditName] = useState("");
-  const [editFields, setEditFields] = useState([]);
-
-  const startEdit = (idx) => {
-    setEditingIdx(idx);
-    setEditName(templates[idx].name);
-    setEditFields(templates[idx].fields);
-  };
-
-  const saveEdit = () => {
-    const updated = templates.map((tpl, idx) =>
-      idx === editingIdx ? { name: editName, fields: editFields } : tpl
-    );
-    saveTemplates(updated);
-    setEditingIdx(null);
-  };
-
   const deleteTemplate = (idx) => {
     const updated = templates.filter((_, i) => i !== idx);
     saveTemplates(updated);
-    setEditingIdx(null);
   };
 
   return (
@@ -64,21 +45,11 @@ function TemplatesManager({ templates, saveTemplates }) {
         {templates.length === 0 && <div style={{ color: palette.textSecondary }}>No templates saved.</div>}
         {templates.map((tpl, idx) => (
           <div key={idx} style={{ border: `1px solid ${palette.border}`, borderRadius: sharedStyles.cardRadius, padding: 24, marginBottom: 24, background: palette.backgroundAlt }}>
-            {editingIdx === idx ? (
-              <div>
-                <input value={editName} onChange={e => setEditName(e.target.value)} style={{ fontSize: 18, marginBottom: 8, width: '100%', border: `1px solid ${palette.border}`, borderRadius: 6, padding: 8, background: palette.card }} />
-                <pre style={{ background: palette.background, padding: 14, borderRadius: 8, fontSize: 15, marginBottom: 12 }}>{JSON.stringify(editFields, null, 2)}</pre>
-                <button onClick={saveEdit} style={{ background: palette.primary, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, marginRight: 8 }}>Save</button>
-                <button onClick={() => setEditingIdx(null)} style={{ background: palette.secondary, color: palette.text, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600 }}>Cancel</button>
-              </div>
-            ) : (
-              <div>
-                <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 8 }}>{tpl.name}</div>
-                <pre style={{ background: palette.background, padding: 14, borderRadius: 8, fontSize: 15, marginBottom: 12 }}>{JSON.stringify(tpl.fields, null, 2)}</pre>
-                <button onClick={() => startEdit(idx)} style={{ background: palette.primary, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, marginRight: 8 }}>Edit</button>
-                <button onClick={() => deleteTemplate(idx)} style={{ background: palette.danger, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600 }}>Delete</button>
-              </div>
-            )}
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 8 }}>{tpl.name}</div>
+              <pre style={{ background: palette.background, padding: 14, borderRadius: 8, fontSize: 15, marginBottom: 12 }}>{JSON.stringify(tpl.fields, null, 2)}</pre>
+              <button onClick={() => deleteTemplate(idx)} style={{ background: palette.danger, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600 }}>Delete</button>
+            </div>
           </div>
         ))}
       </main>
