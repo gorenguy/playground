@@ -1,0 +1,32 @@
+# Node
+node_modules/
+build/
+dist/
+.env
+npm-debug.log
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+
+# Docker
+*.pid
+
+# Misc
+*.swp
+*.swo
+
+# PyCharm
+.idea/
+*.iml
