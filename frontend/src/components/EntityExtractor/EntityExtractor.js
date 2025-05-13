@@ -251,7 +251,7 @@ function EntityExtractor() {
         padding: '24px 0 12px 0',
         background: 'none'
       }}>
-        &copy; {new Date().getFullYear()} Entity Extractor. Powered by React & FastAPI.
+        &copy; {new Date().getFullYear()} Entity Extractor.
       </footer>
     </div>
   );
