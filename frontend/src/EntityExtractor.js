@@ -8,14 +8,14 @@ const FIELD_TYPES = ["string", "number", "boolean"];
 function EntityExtractor() {
   const [inputText, setInputText] = useState("");
   const [fields, setFields] = useState([
-    { name: "", type: "string", required: false, description: "" }
+    { name: "", type: "string", description: "" }
   ]);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Add a new field to the schema
   const addField = () => {
-    setFields([...fields, { name: "", type: "string", required: false, description: "" }]);
+    setFields([...fields, { name: "", type: "string", description: "" }]);
   };
 
   // Remove a field from the schema
@@ -37,7 +37,7 @@ function EntityExtractor() {
       const prop = { type: f.type };
       if (f.description) prop.description = f.description;
       properties[f.name] = prop;
-      if (f.required) required.push(f.name);
+      required.push(f.name); // All fields are required
     });
     const schema = { type: "object", properties };
     if (required.length) schema.required = required;
@@ -99,14 +99,6 @@ function EntityExtractor() {
               onChange={e => updateField(idx, "description", e.target.value)}
               style={{ flex: 3 }}
             />
-            <label style={{ flex: 1 }}>
-              <input
-                type="checkbox"
-                checked={field.required}
-                onChange={e => updateField(idx, "required", e.target.checked)}
-              />
-              Required
-            </label>
             <button
               onClick={() => removeField(idx)}
               disabled={fields.length === 1}

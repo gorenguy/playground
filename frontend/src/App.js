@@ -111,13 +111,14 @@ function App() {
         {screen === "extract" ? (
           <EntityExtractor
             templates={templates}
+            saveTemplates={saveTemplates}
             onUseTemplate={handleUseTemplate}
             activeTemplate={activeTemplate}
           />
         ) : (
           <TemplatesManager
             templates={templates}
-            setTemplates={saveTemplates}
+            saveTemplates={saveTemplates}
             onUseTemplate={handleUseTemplate}
           />
         )}

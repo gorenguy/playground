@@ -7,7 +7,7 @@ const FIELD_TYPES = ["string", "number", "boolean"];
 function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
   const [inputFile, setInputFile] = useState(null);
   const [fields, setFields] = useState([
-    { name: "", type: "string", required: false, description: "" }
+    { name: "", type: "string", required: true, description: "" }
   ]);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,14 +16,15 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
   // Load template fields if activeTemplate changes
   useEffect(() => {
     if (activeTemplate) {
-      setFields(activeTemplate.fields);
+      // Ensure all loaded fields are required
+      setFields(activeTemplate.fields.map(f => ({ ...f, required: true })));
       setTemplateName(activeTemplate.name);
     }
   }, [activeTemplate]);
 
   // Add a new field to the schema
   const addField = () => {
-    setFields([...fields, { name: "", type: "string", required: false, description: "" }]);
+    setFields([...fields, { name: "", type: "string", required: true, description: "" }]);
   };
 
   // Remove a field from the schema
@@ -45,7 +46,7 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
       const prop = { type: f.type };
       if (f.description) prop.description = f.description;
       properties[f.name] = prop;
-      if (f.required) required.push(f.name);
+      required.push(f.name); // All fields are required
     });
     const schema = { type: "object", properties };
     if (required.length) schema.required = required;
@@ -78,9 +79,11 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
 
   const saveCurrentTemplate = () => {
     if (!templateName.trim()) return;
+    // Ensure all saved fields are required
+    const requiredFields = fields.map(f => ({ ...f, required: true }));
     const newTemplates = [
       ...templates.filter(t => t.name !== templateName.trim()),
-      { name: templateName.trim(), fields }
+      { name: templateName.trim(), fields: requiredFields }
     ];
     saveTemplates(newTemplates);
     setTemplateName("");
@@ -253,15 +256,6 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
                   background: palette.card
                 }}
               />
-              <label style={{ flex: 1, fontSize: 14, color: palette.textSecondary, display: 'flex', alignItems: 'center', gap: 4 }}>
-                <input
-                  type="checkbox"
-                  checked={field.required}
-                  onChange={e => updateField(idx, "required", e.target.checked)}
-                  style={{ marginRight: 4 }}
-                />
-                Required
-              </label>
               <button
                 onClick={() => removeField(idx)}
                 disabled={fields.length === 1}

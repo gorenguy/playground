@@ -68,9 +68,6 @@ function TemplatesManager({ templates, saveTemplates, onUseTemplate }) {
                       <span style={{ flex: 2, fontWeight: 600 }}>{field.name}</span>
                       <span style={{ flex: 1, color: palette.textSecondary }}>{field.type}</span>
                       <span style={{ flex: 3, color: palette.textSecondary }}>{field.description}</span>
-                      <span style={{ flex: 1, color: field.required ? palette.primary : palette.textSecondary, fontWeight: 500 }}>
-                        {field.required ? 'Required' : 'Optional'}
-                      </span>
                     </div>
                   ))
                 ) : (
