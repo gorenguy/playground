@@ -127,13 +127,31 @@ function EntityExtractor({ templates, saveTemplates }) {
             }}
           />
         </div>
-        <div style={{ marginBottom: 20 }}>
+        <div style={{
+          marginBottom: 28,
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          background: '#f8fafc',
+          padding: 18,
+          boxSizing: 'border-box'
+        }}>
           <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Templates</label>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-            <select onChange={e => {
-              const idx = e.target.value;
-              if (idx !== "") loadTemplate(templates[idx]);
-            }} value="">
+            <select
+              onChange={e => {
+                const idx = e.target.value;
+                if (idx !== "") loadTemplate(templates[idx]);
+              }}
+              value=""
+              style={{
+                border: '1px solid #cbd5e1',
+                borderRadius: 6,
+                padding: '8px 12px',
+                fontSize: 15,
+                background: '#fff',
+                minWidth: 180
+              }}
+            >
               <option value="">Load template...</option>
               {templates.map((tpl, idx) => (
                 <option key={tpl.name} value={idx}>{tpl.name}</option>
@@ -144,9 +162,30 @@ function EntityExtractor({ templates, saveTemplates }) {
               placeholder="Template name"
               value={templateName}
               onChange={e => setTemplateName(e.target.value)}
-              style={{ border: '1px solid #cbd5e1', borderRadius: 6, padding: 6, fontSize: 15 }}
+              style={{
+                border: '1px solid #cbd5e1',
+                borderRadius: 6,
+                padding: '8px 12px',
+                fontSize: 15,
+                background: '#fff',
+                minWidth: 180
+              }}
             />
-            <button onClick={saveCurrentTemplate} style={{ background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, padding: '7px 16px', fontWeight: 600 }}>Save Template</button>
+            <button
+              onClick={saveCurrentTemplate}
+              style={{
+                background: '#2563eb',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 6,
+                padding: '8px 18px',
+                fontWeight: 600,
+                fontSize: 15,
+                boxShadow: '0 1px 4px rgba(37,99,235,0.08)'
+              }}
+            >
+              Save Template
+            </button>
           </div>
         </div>
         <div style={{
