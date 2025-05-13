@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Request, UploadFile, File, Form
+from fastapi import APIRouter, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 import json
+import tempfile
+import os
 
 import config
 
@@ -13,12 +15,17 @@ client = genai.Client(api_key=config.GOOGLE_API_KEY)
 @router.post("/api/extract")
 async def extract_entities(file: UploadFile = File(...), schema: str = Form(...)):
     try:
-        # Save uploaded file to a temp location
-        contents = await file.read()
-        with open(file.filename, "wb") as f:
-            f.write(contents)
-        # Upload file to Google GenAI
-        myfile = client.files.upload(file=file.filename)
+        # Create a temporary file with the correct suffix for mimetype
+        suffix = os.path.splitext(file.filename)[1] or None
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+            content = await file.read()
+            tmp.write(content)
+            tmp_path = tmp.name
+        try:
+            # Upload file to Google GenAI (no mime_type argument)
+            myfile = client.files.upload(file=tmp_path)
+        finally:
+            os.remove(tmp_path)
         # Parse schema
         schema_dict = json.loads(schema)
         # Use the uploaded file in the model call
