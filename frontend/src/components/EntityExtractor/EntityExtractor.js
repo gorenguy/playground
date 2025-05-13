@@ -4,7 +4,7 @@ import OutputVisualizer from "./OutputVisualizer";
 const FIELD_TYPES = ["string", "number", "boolean"];
 
 function EntityExtractor() {
-  const [inputText, setInputText] = useState("");
+  const [inputFile, setInputFile] = useState(null);
   const [fields, setFields] = useState([
     { name: "", type: "string", required: false, description: "" }
   ]);
@@ -43,14 +43,20 @@ function EntityExtractor() {
   };
 
   const handleSubmit = async () => {
+    if (!inputFile) {
+      setOutput("Please upload a file.");
+      return;
+    }
     setLoading(true);
     setOutput("");
     try {
       const schema = buildSchema();
+      const formData = new FormData();
+      formData.append("file", inputFile);
+      formData.append("schema", JSON.stringify(schema));
       const res = await fetch("/api/extract", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: inputText, schema })
+        body: formData
       });
       const data = await res.json();
       setOutput(JSON.stringify(data, null, 2));
@@ -87,32 +93,29 @@ function EntityExtractor() {
         <p style={{ color: '#64748b', fontSize: 18, margin: 0 }}>Extract structured data from text using AI</p>
       </header>
       <main style={{
-        maxWidth: 600,
+        maxWidth: 900,
         margin: '0 auto',
         background: '#fff',
         borderRadius: 16,
         boxShadow: '0 4px 32px rgba(0,0,0,0.07)',
-        padding: 32,
+        padding: 48,
         marginBottom: 48
       }}>
         <div style={{ marginBottom: 28 }}>
-          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Input Text</label>
-          <textarea
-            rows={5}
+          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
+          <input
+            type="file"
+            onChange={e => setInputFile(e.target.files[0])}
             style={{
               width: '100%',
               border: '1px solid #cbd5e1',
               borderRadius: 8,
-              padding: 14,
+              padding: 10,
               fontSize: 16,
-              fontFamily: 'inherit',
               background: '#f1f5f9',
-              resize: 'vertical',
               marginTop: 4,
               boxSizing: 'border-box'
             }}
-            value={inputText}
-            onChange={e => setInputText(e.target.value)}
           />
         </div>
         <div style={{

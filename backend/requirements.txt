@@ -3,3 +3,4 @@ uvicorn
 watchgod
 dotenv
 google-genai
+python-multipart
