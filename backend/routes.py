@@ -10,11 +10,6 @@ router = APIRouter()
 client = genai.Client(api_key=config.GOOGLE_API_KEY)
 
 
-@router.get("/api/hello")
-def read_root():
-    return {"message": "Hello from FastAPI213"}
-
-
 @router.post("/api/extract")
 async def extract_entities(request: Request):
     data = await request.json()
@@ -37,3 +32,5 @@ async def extract_entities(request: Request):
         return JSONResponse(content={"result": response.text})
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+
