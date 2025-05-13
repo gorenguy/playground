@@ -18,6 +18,8 @@ export const palette = {
   tableHeader: '#f0f2f5',
   tableBorder: '#e4e6eb',
   inputBackground: '#f5f6fa',
+  buttonText: '#fff', // Add white for button text
+  headerDark: '#3a3b3c', // even lighter dark for header background
 };
 
 export const sharedStyles = {
@@ -28,4 +30,6 @@ export const sharedStyles = {
   fontWeightBold: 600,
   fontWeightHeader: 700,
 };
+
+
 

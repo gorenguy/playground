@@ -27,7 +27,7 @@ function App() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: palette.card,
+        background: palette.headerDark, // changed to dark background
         boxShadow: palette.cardShadow,
         padding: '0 40px',
         height: 72,
@@ -49,7 +49,7 @@ function App() {
             onClick={() => { setScreen("extract"); setActiveTemplate(null); }}
             style={{
               background: screen === "extract" ? palette.primary : 'transparent',
-              color: screen === "extract" ? palette.buttonText : palette.text,
+              color: palette.buttonText, // always white text
               border: 'none',
               borderRadius: 6,
               padding: '8px 20px',
@@ -65,7 +65,7 @@ function App() {
             onClick={() => setScreen("templates")}
             style={{
               background: screen === "templates" ? palette.primary : 'transparent',
-              color: screen === "templates" ? palette.buttonText : palette.text,
+              color: palette.buttonText, // always white text
               border: 'none',
               borderRadius: 6,
               padding: '8px 20px',
