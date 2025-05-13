@@ -1,7 +1,7 @@
 import React from "react";
 import { palette, sharedStyles } from '../../styles/theme';
 
-function OutputVisualizer({ output }) {
+function OutputVisualizer({ output, fields }) {
   let parsed;
   try {
     parsed = JSON.parse(output);
@@ -25,7 +25,18 @@ function OutputVisualizer({ output }) {
   if (!parsed || typeof parsed !== 'object') {
     return <div style={{ color: 'green', fontWeight: sharedStyles.fontWeightBold }}>{String(parsed)}</div>;
   }
-  const entries = Object.entries(parsed);
+  // Order entries by fields order if fields are provided
+  let entries;
+  if (fields && Array.isArray(fields) && fields.length > 0) {
+    entries = fields
+      .filter(f => f.name && Object.prototype.hasOwnProperty.call(parsed, f.name))
+      .map(f => [f.name, parsed[f.name]]);
+    // Add any extra keys not in fields at the end
+    const extra = Object.entries(parsed).filter(([k]) => !fields.some(f => f.name === k));
+    entries = [...entries, ...extra];
+  } else {
+    entries = Object.entries(parsed);
+  }
   if (!entries.length) return <div>No data extracted.</div>;
   return (
     <table style={{

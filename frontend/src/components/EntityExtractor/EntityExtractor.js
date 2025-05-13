@@ -340,7 +340,7 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
         <div style={{ margin: '32px 0 0 0' }}>
           <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Output Result</label>
           {output && (
-            <OutputVisualizer output={output} />
+            <OutputVisualizer output={output} fields={fields} />
           )}
         </div>
       </main>
