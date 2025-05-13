@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import OutputVisualizer from "./OutputVisualizer";
+import OutputVisualizer from "../OutputVisualizer/OutputVisualizer";
 import { palette, sharedStyles } from '../../styles/theme';
 
 const FIELD_TYPES = ["string", "number", "boolean"];
