@@ -5,14 +5,14 @@ const FIELD_TYPES = ["string", "number", "boolean"];
 function EntityExtractor() {
   const [inputText, setInputText] = useState("");
   const [fields, setFields] = useState([
-    { name: "", type: "string", required: false }
+    { name: "", type: "string", required: false, description: "" }
   ]);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Add a new field to the schema
   const addField = () => {
-    setFields([...fields, { name: "", type: "string", required: false }]);
+    setFields([...fields, { name: "", type: "string", required: false, description: "" }]);
   };
 
   // Remove a field from the schema
@@ -31,7 +31,9 @@ function EntityExtractor() {
     const required = [];
     fields.forEach(f => {
       if (!f.name) return;
-      properties[f.name] = { type: f.type };
+      const prop = { type: f.type };
+      if (f.description) prop.description = f.description;
+      properties[f.name] = prop;
       if (f.required) required.push(f.name);
     });
     const schema = { type: "object", properties };
@@ -72,7 +74,7 @@ function EntityExtractor() {
       <div style={{ margin: "20px 0", border: "1px solid #ccc", padding: 10 }}>
         <label>Define Entity Schema:</label>
         {fields.map((field, idx) => (
-          <div key={idx} style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+          <div key={idx} style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: 'center' }}>
             <input
               placeholder="Field name"
               value={field.name}
@@ -88,6 +90,12 @@ function EntityExtractor() {
                 <option key={t} value={t}>{t}</option>
               ))}
             </select>
+            <input
+              placeholder="Description"
+              value={field.description}
+              onChange={e => updateField(idx, "description", e.target.value)}
+              style={{ flex: 3 }}
+            />
             <label style={{ flex: 1 }}>
               <input
                 type="checkbox"
