@@ -3,13 +3,14 @@ import OutputVisualizer from "./OutputVisualizer";
 
 const FIELD_TYPES = ["string", "number", "boolean"];
 
-function EntityExtractor() {
+function EntityExtractor({ templates, saveTemplates }) {
   const [inputFile, setInputFile] = useState(null);
   const [fields, setFields] = useState([
     { name: "", type: "string", required: false, description: "" }
   ]);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [templateName, setTemplateName] = useState("");
 
   // Add a new field to the schema
   const addField = () => {
@@ -66,6 +67,20 @@ function EntityExtractor() {
     setLoading(false);
   };
 
+  const saveCurrentTemplate = () => {
+    if (!templateName.trim()) return;
+    const newTemplates = [
+      ...templates.filter(t => t.name !== templateName.trim()),
+      { name: templateName.trim(), fields }
+    ];
+    saveTemplates(newTemplates);
+    setTemplateName("");
+  };
+
+  const loadTemplate = (tpl) => {
+    setFields(tpl.fields);
+  };
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -117,6 +132,28 @@ function EntityExtractor() {
               boxSizing: 'border-box'
             }}
           />
+        </div>
+        <div style={{ marginBottom: 20 }}>
+          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Templates</label>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+            <select onChange={e => {
+              const idx = e.target.value;
+              if (idx !== "") loadTemplate(templates[idx]);
+            }} value="">
+              <option value="">Load template...</option>
+              {templates.map((tpl, idx) => (
+                <option key={tpl.name} value={idx}>{tpl.name}</option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder="Template name"
+              value={templateName}
+              onChange={e => setTemplateName(e.target.value)}
+              style={{ border: '1px solid #cbd5e1', borderRadius: 6, padding: 6, fontSize: 15 }}
+            />
+            <button onClick={saveCurrentTemplate} style={{ background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, padding: '7px 16px', fontWeight: 600 }}>Save Template</button>
+          </div>
         </div>
         <div style={{
           marginBottom: 28,
