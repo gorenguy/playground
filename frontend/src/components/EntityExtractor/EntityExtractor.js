@@ -276,7 +276,14 @@ function EntityExtractor({ templates, saveTemplates }) {
             Add Field
           </button>
         </div>
-        <div style={{ marginBottom: 28 }}>
+        <div style={{
+          marginBottom: 28,
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          background: '#f8fafc',
+          padding: 18,
+          boxSizing: 'border-box'
+        }}>
           <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
           <input
             type="file"
