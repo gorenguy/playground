@@ -16,10 +16,62 @@ function App() {
 
   return (
     <div>
-      <nav style={{ display: 'flex', gap: 16, padding: 16, background: '#f1f5f9' }}>
-        <button onClick={() => setScreen("extract")}>Extraction</button>
-        <button onClick={() => setScreen("templates")}>Templates</button>
-      </nav>
+      <header style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        background: '#fff',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+        padding: '0 40px',
+        height: 72,
+        borderBottom: '1px solid #e5e7eb',
+        position: 'sticky',
+        top: 0,
+        zIndex: 10
+      }}>
+        <span style={{
+          fontWeight: 800,
+          fontSize: 28,
+          letterSpacing: -1,
+          color: '#2563eb',
+        }}>
+          Entity Extractor
+        </span>
+        <nav style={{ display: 'flex', gap: 8, marginLeft: 'auto' }}>
+          <button
+            onClick={() => setScreen("extract")}
+            style={{
+              background: screen === "extract" ? '#2563eb' : 'transparent',
+              color: screen === "extract" ? '#fff' : '#222',
+              border: 'none',
+              borderRadius: 6,
+              padding: '8px 20px',
+              fontWeight: 600,
+              fontSize: 16,
+              cursor: 'pointer',
+              transition: 'background 0.2s, color 0.2s'
+            }}
+          >
+            Extraction
+          </button>
+          <button
+            onClick={() => setScreen("templates")}
+            style={{
+              background: screen === "templates" ? '#2563eb' : 'transparent',
+              color: screen === "templates" ? '#fff' : '#222',
+              border: 'none',
+              borderRadius: 6,
+              padding: '8px 20px',
+              fontWeight: 600,
+              fontSize: 16,
+              cursor: 'pointer',
+              transition: 'background 0.2s, color 0.2s'
+            }}
+          >
+            Templates
+          </button>
+        </nav>
+      </header>
       {screen === "extract" ? (
         <EntityExtractor
           templates={templates}

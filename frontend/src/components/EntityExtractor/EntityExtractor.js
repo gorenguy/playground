@@ -96,16 +96,10 @@ function EntityExtractor({ templates, saveTemplates }) {
         padding: '32px 0 16px 0',
         marginBottom: 32,
         textAlign: 'center',
-        borderBottom: '1px solid #e5e7eb'
+        borderBottom: '1px solid #e5e7eb',
+        display: 'none' // Hide header, now handled in App.js
       }}>
-        <h1 style={{
-          fontWeight: 800,
-          fontSize: 36,
-          letterSpacing: -1,
-          margin: 0,
-          color: '#2d3748'
-        }}>Entity Extractor</h1>
-        <p style={{ color: '#64748b', fontSize: 18, margin: 0 }}>Extract structured data from text using AI</p>
+        {/* Header removed, now in App.js */}
       </header>
       <main style={{
         maxWidth: 900,
