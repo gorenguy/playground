@@ -267,14 +267,15 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
                 disabled={fields.length === 1}
                 style={{
                   background: palette.danger,
-                  color: palette.card,
+                  color: palette.buttonText,
                   border: 'none',
-                  borderRadius: 6,
+                  borderRadius: sharedStyles.borderRadius,
                   padding: '7px 14px',
                   fontWeight: sharedStyles.fontWeightBold,
                   cursor: fields.length === 1 ? 'not-allowed' : 'pointer',
                   opacity: fields.length === 1 ? 0.5 : 1,
-                  transition: 'opacity 0.2s'
+                  transition: 'opacity 0.2s',
+                  marginLeft: 8
                 }}
               >
                 Remove

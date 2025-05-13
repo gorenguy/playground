@@ -78,7 +78,17 @@ function TemplatesManager({ templates, saveTemplates, onUseTemplate }) {
                 )}
               </div>
               <button onClick={() => onUseTemplate(tpl)} style={{ background: palette.primary, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, marginRight: 8 }}>Use Template</button>
-              <button onClick={() => deleteTemplate(idx)} style={{ background: palette.danger, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600 }}>Delete</button>
+              <button onClick={() => deleteTemplate(idx)} style={{
+                background: palette.danger,
+                color: palette.buttonText,
+                border: 'none',
+                borderRadius: sharedStyles.borderRadius,
+                padding: '8px 18px',
+                fontWeight: sharedStyles.fontWeightBold,
+                marginLeft: 4,
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+              }}>Delete</button>
             </div>
           </div>
         ))}

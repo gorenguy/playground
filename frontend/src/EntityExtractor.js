@@ -107,7 +107,22 @@ function EntityExtractor() {
               />
               Required
             </label>
-            <button onClick={() => removeField(idx)} disabled={fields.length === 1}>
+            <button
+              onClick={() => removeField(idx)}
+              disabled={fields.length === 1}
+              style={{
+                background: palette.danger,
+                color: palette.buttonText,
+                border: 'none',
+                borderRadius: sharedStyles.borderRadius,
+                padding: '7px 14px',
+                fontWeight: sharedStyles.fontWeightBold,
+                cursor: fields.length === 1 ? 'not-allowed' : 'pointer',
+                opacity: fields.length === 1 ? 0.5 : 1,
+                transition: 'opacity 0.2s',
+                marginLeft: 8
+              }}
+            >
               Remove
             </button>
           </div>

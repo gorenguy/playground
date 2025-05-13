@@ -22,76 +22,106 @@ function App() {
   };
 
   return (
-    <div>
+    <div style={{
+      minHeight: '100vh',
+      background: palette.background,
+      fontFamily: sharedStyles.fontFamily,
+      color: palette.text,
+    }}>
       <header style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: palette.headerDark, // changed to dark background
+        background: palette.headerDark, // white header
         boxShadow: palette.cardShadow,
-        padding: '0 40px',
-        height: 72,
+        padding: '0 32px',
+        height: 64,
         borderBottom: `1px solid ${palette.border}`,
         position: 'sticky',
         top: 0,
-        zIndex: 10
+        zIndex: 10,
       }}>
         <span style={{
           fontWeight: sharedStyles.fontWeightHeader,
-          fontSize: 28,
-          letterSpacing: -1,
+          fontSize: 26,
+          letterSpacing: -0.5,
           color: palette.primary,
+          fontFamily: sharedStyles.fontFamily,
         }}>
-          Entity Extractor
+          {/* Logo placeholder instead of EE Entity Extractor */}
+          <span style={{
+            display: 'inline-block',
+            background: palette.primaryLight,
+            color: palette.primary,
+            borderRadius: 8,
+            padding: '2px 12px',
+            marginRight: 10,
+            fontWeight: 700,
+            fontSize: 22,
+          }}>Logo</span>
         </span>
-        <nav style={{ display: 'flex', gap: 8, marginLeft: 'auto' }}>
+        <nav style={{ display: 'flex', gap: 12, marginLeft: 'auto' }}>
           <button
             onClick={() => { setScreen("extract"); setActiveTemplate(null); }}
             style={{
-              background: screen === "extract" ? palette.primary : 'transparent',
-              color: palette.buttonText, // always white text
+              background: screen === 'extract' ? palette.primary : palette.backgroundAlt,
+              color: screen === 'extract' ? palette.buttonText : palette.text,
               border: 'none',
-              borderRadius: 6,
-              padding: '8px 20px',
-              fontWeight: sharedStyles.fontWeightBold,
+              borderRadius: sharedStyles.borderRadius,
+              padding: '8px 18px',
+              fontWeight: 600,
+              fontFamily: sharedStyles.fontFamily,
               fontSize: 16,
+              boxShadow: screen === 'extract' ? '0 2px 8px rgba(219,76,63,0.08)' : 'none',
               cursor: 'pointer',
-              transition: 'background 0.2s, color 0.2s'
+              transition: 'background 0.2s',
             }}
           >
-            Extraction
+            Extract
           </button>
           <button
             onClick={() => setScreen("templates")}
             style={{
-              background: screen === "templates" ? palette.primary : 'transparent',
-              color: palette.buttonText, // always white text
+              background: screen === 'templates' ? palette.primary : palette.backgroundAlt,
+              color: screen === 'templates' ? palette.buttonText : palette.text,
               border: 'none',
-              borderRadius: 6,
-              padding: '8px 20px',
-              fontWeight: sharedStyles.fontWeightBold,
+              borderRadius: sharedStyles.borderRadius,
+              padding: '8px 18px',
+              fontWeight: 600,
+              fontFamily: sharedStyles.fontFamily,
               fontSize: 16,
+              boxShadow: screen === 'templates' ? '0 2px 8px rgba(219,76,63,0.08)' : 'none',
               cursor: 'pointer',
-              transition: 'background 0.2s, color 0.2s'
+              transition: 'background 0.2s',
             }}
           >
             Templates
           </button>
         </nav>
       </header>
-      {screen === "extract" ? (
-        <EntityExtractor
-          templates={templates}
-          saveTemplates={saveTemplates}
-          activeTemplate={activeTemplate}
-        />
-      ) : (
-        <TemplatesManager
-          templates={templates}
-          saveTemplates={saveTemplates}
-          onUseTemplate={handleUseTemplate}
-        />
-      )}
+      <main style={{
+        maxWidth: 900,
+        margin: '40px auto',
+        background: palette.card,
+        borderRadius: sharedStyles.cardRadius,
+        boxShadow: palette.cardShadow,
+        padding: sharedStyles.cardPadding,
+        minHeight: 400,
+      }}>
+        {screen === "extract" ? (
+          <EntityExtractor
+            templates={templates}
+            onUseTemplate={handleUseTemplate}
+            activeTemplate={activeTemplate}
+          />
+        ) : (
+          <TemplatesManager
+            templates={templates}
+            setTemplates={saveTemplates}
+            onUseTemplate={handleUseTemplate}
+          />
+        )}
+      </main>
     </div>
   );
 }

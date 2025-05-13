@@ -3,33 +3,32 @@
 // Centralized color palette and shared style constants
 
 export const palette = {
-  primary: '#1877f2',
-  primaryLight: '#e7f3ff',
+  primary: '#a259e6', // nice purple
+  primaryLight: '#f3e9fa', // lighter purple background
   danger: '#fa3e3e',
-  background: '#f0f2f5',
-  backgroundAlt: '#e4e6eb',
+  background: '#fff', // white background
+  backgroundAlt: '#fafafa', // very light gray
   card: '#fff',
-  cardShadow: '0 1px 2px rgba(0,0,0,0.07)',
-  border: '#ccd0d5',
-  borderAlt: '#dfe3e8',
-  text: '#050505',
-  textSecondary: '#65676b',
-  textHeader: '#1c1e21',
-  tableHeader: '#f0f2f5',
-  tableBorder: '#e4e6eb',
-  inputBackground: '#f5f6fa',
-  buttonText: '#fff', // Add white for button text
-  headerDark: '#3a3b3c', // even lighter dark for header background
+  cardShadow: '0 2px 8px rgba(0,0,0,0.04)', // softer shadow
+  border: '#e6e6e6', // light gray border
+  borderAlt: '#f0f0f0',
+  text: '#202020', // dark gray text
+  textSecondary: '#888', // lighter gray
+  textHeader: '#1a1a1a',
+  tableHeader: '#fafafa',
+  tableBorder: '#e6e6e6',
+  inputBackground: '#f5f5f5',
+  buttonText: '#fff',
+  headerDark: '#fff', // white header
 };
 
 export const sharedStyles = {
-  borderRadius: 6,
-  cardRadius: 8,
-  cardPadding: 32,
-  cardMarginBottom: 24,
+  borderRadius: 8, // more rounded
+  cardRadius: 12, // more rounded
+  cardPadding: 24, // slightly less padding
+  cardMarginBottom: 20,
   fontWeightBold: 600,
   fontWeightHeader: 700,
+  fontFamily: 'Inter, Arial, sans-serif', // modern font
 };
-
-
 
