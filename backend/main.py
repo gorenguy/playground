@@ -2,6 +2,9 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from routes import router
+
+import config
 
 app = FastAPI()
 
@@ -13,9 +16,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.get("/api/hello")
-def read_root():
-    return {"message": "Hello from FastAPI213"}
-
-
+app.include_router(router)

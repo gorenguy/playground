@@ -2,3 +2,4 @@ fastapi
 uvicorn
 watchgod
 dotenv
+google-genai

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import EntityExtractor from "./EntityExtractor";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -13,10 +14,10 @@ function App() {
     <div>
       <h1>React + FastAPI</h1>
       <p>{message}</p>
+      <EntityExtractor />
     </div>
   );
 }
 
 export default App;
-
 
