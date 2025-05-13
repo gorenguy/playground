@@ -47,7 +47,36 @@ function TemplatesManager({ templates, saveTemplates, onUseTemplate }) {
           <div key={idx} style={{ border: `1px solid ${palette.border}`, borderRadius: sharedStyles.cardRadius, padding: 24, marginBottom: 24, background: palette.backgroundAlt }}>
             <div>
               <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 8 }}>{tpl.name}</div>
-              <pre style={{ background: palette.background, padding: 14, borderRadius: 8, fontSize: 15, marginBottom: 12 }}>{JSON.stringify(tpl.fields, null, 2)}</pre>
+              <div style={{
+                border: `1px solid ${palette.border}`,
+                borderRadius: 12,
+                background: palette.background,
+                padding: 18,
+                marginBottom: 12
+              }}>
+                <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Fields</label>
+                {tpl.fields && tpl.fields.length > 0 ? (
+                  tpl.fields.map((field, fidx) => (
+                    <div key={fidx} style={{
+                      display: 'flex',
+                      gap: 10,
+                      marginBottom: 10,
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                      fontSize: 15
+                    }}>
+                      <span style={{ flex: 2, fontWeight: 600 }}>{field.name}</span>
+                      <span style={{ flex: 1, color: palette.textSecondary }}>{field.type}</span>
+                      <span style={{ flex: 3, color: palette.textSecondary }}>{field.description}</span>
+                      <span style={{ flex: 1, color: field.required ? palette.primary : palette.textSecondary, fontWeight: 500 }}>
+                        {field.required ? 'Required' : 'Optional'}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ color: palette.textSecondary, fontStyle: 'italic' }}>No fields defined.</div>
+                )}
+              </div>
               <button onClick={() => onUseTemplate(tpl)} style={{ background: palette.primary, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, marginRight: 8 }}>Use Template</button>
               <button onClick={() => deleteTemplate(idx)} style={{ background: palette.danger, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600 }}>Delete</button>
             </div>
