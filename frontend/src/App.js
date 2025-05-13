@@ -9,10 +9,16 @@ function App() {
     const saved = localStorage.getItem("entity_templates");
     return saved ? JSON.parse(saved) : [];
   });
+  const [activeTemplate, setActiveTemplate] = useState(null);
 
   const saveTemplates = (newTemplates) => {
     setTemplates(newTemplates);
     localStorage.setItem("entity_templates", JSON.stringify(newTemplates));
+  };
+
+  const handleUseTemplate = (tpl) => {
+    setActiveTemplate(tpl);
+    setScreen("extract");
   };
 
   return (
@@ -40,7 +46,7 @@ function App() {
         </span>
         <nav style={{ display: 'flex', gap: 8, marginLeft: 'auto' }}>
           <button
-            onClick={() => setScreen("extract")}
+            onClick={() => { setScreen("extract"); setActiveTemplate(null); }}
             style={{
               background: screen === "extract" ? palette.primary : 'transparent',
               color: screen === "extract" ? palette.buttonText : palette.text,
@@ -77,11 +83,13 @@ function App() {
         <EntityExtractor
           templates={templates}
           saveTemplates={saveTemplates}
+          activeTemplate={activeTemplate}
         />
       ) : (
         <TemplatesManager
           templates={templates}
           saveTemplates={saveTemplates}
+          onUseTemplate={handleUseTemplate}
         />
       )}
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { palette, sharedStyles } from '../../styles/theme';
 
-function TemplatesManager({ templates, saveTemplates }) {
+function TemplatesManager({ templates, saveTemplates, onUseTemplate }) {
   const deleteTemplate = (idx) => {
     const updated = templates.filter((_, i) => i !== idx);
     saveTemplates(updated);
@@ -48,6 +48,7 @@ function TemplatesManager({ templates, saveTemplates }) {
             <div>
               <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 8 }}>{tpl.name}</div>
               <pre style={{ background: palette.background, padding: 14, borderRadius: 8, fontSize: 15, marginBottom: 12 }}>{JSON.stringify(tpl.fields, null, 2)}</pre>
+              <button onClick={() => onUseTemplate(tpl)} style={{ background: palette.primary, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, marginRight: 8 }}>Use Template</button>
               <button onClick={() => deleteTemplate(idx)} style={{ background: palette.danger, color: palette.buttonText, border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600 }}>Delete</button>
             </div>
           </div>

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OutputVisualizer from "./OutputVisualizer";
 import { palette, sharedStyles } from '../../styles/theme';
 
 const FIELD_TYPES = ["string", "number", "boolean"];
 
-function EntityExtractor({ templates, saveTemplates }) {
+function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
   const [inputFile, setInputFile] = useState(null);
   const [fields, setFields] = useState([
     { name: "", type: "string", required: false, description: "" }
@@ -12,6 +12,14 @@ function EntityExtractor({ templates, saveTemplates }) {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [templateName, setTemplateName] = useState("");
+
+  // Load template fields if activeTemplate changes
+  useEffect(() => {
+    if (activeTemplate) {
+      setFields(activeTemplate.fields);
+      setTemplateName(activeTemplate.name);
+    }
+  }, [activeTemplate]);
 
   // Add a new field to the schema
   const addField = () => {
