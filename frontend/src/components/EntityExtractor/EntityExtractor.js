@@ -110,23 +110,6 @@ function EntityExtractor({ templates, saveTemplates }) {
         padding: 48,
         marginBottom: 48
       }}>
-        <div style={{ marginBottom: 28 }}>
-          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
-          <input
-            type="file"
-            onChange={e => setInputFile(e.target.files[0])}
-            style={{
-              width: '100%',
-              border: '1px solid #cbd5e1',
-              borderRadius: 8,
-              padding: 10,
-              fontSize: 16,
-              background: '#f1f5f9',
-              marginTop: 4,
-              boxSizing: 'border-box'
-            }}
-          />
-        </div>
         <div style={{
           marginBottom: 28,
           border: '1px solid #e2e8f0',
@@ -292,6 +275,23 @@ function EntityExtractor({ templates, saveTemplates }) {
           >
             Add Field
           </button>
+        </div>
+        <div style={{ marginBottom: 28 }}>
+          <label style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
+          <input
+            type="file"
+            onChange={e => setInputFile(e.target.files[0])}
+            style={{
+              width: '100%',
+              border: '1px solid #cbd5e1',
+              borderRadius: 8,
+              padding: 10,
+              fontSize: 16,
+              background: '#f1f5f9',
+              marginTop: 4,
+              boxSizing: 'border-box'
+            }}
+          />
         </div>
         <button
           onClick={handleSubmit}
