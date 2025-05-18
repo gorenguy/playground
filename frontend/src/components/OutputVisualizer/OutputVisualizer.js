@@ -15,28 +15,31 @@ function OutputVisualizer({ output, fields }) {
     try { data = typeof data.result === 'string' ? JSON.parse(data.result) : data.result; }
     catch { data = data.result; }
   }
-  // Handle batch results
-  if (data && Array.isArray(data.results) && data.results.length > 1) {
-    return (
-      <table style={{ width: '100%', borderCollapse: 'collapse', background: palette.backgroundAlt, border: `1px solid ${palette.tableBorder}`, borderRadius: sharedStyles.borderRadius, marginTop: 8 }}>
-        <thead>
-          <tr style={{ background: palette.tableHeader }}>
-            {fields.map(f => f.name).map(name => (
-              <th key={name} style={{ textAlign: 'left', padding: 8, border: `1px solid ${palette.tableBorder}` }}>{name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.results.map((item, i) => (
-            <tr key={i}>
-              {fields.map(f => (
-                <td key={f.name} style={{ padding: 8, border: `1px solid ${palette.tableBorder}` }}>{String(item[f.name] ?? '')}</td>
+  // Handle batch results (including single result)
+  if (data && Array.isArray(data.results)) {
+    const resultsArray = data.results;
+    if (resultsArray.length > 0) {
+      return (
+        <table style={{ width: '100%', borderCollapse: 'collapse', background: palette.backgroundAlt, border: `1px solid ${palette.tableBorder}`, borderRadius: sharedStyles.borderRadius, marginTop: 8 }}>
+          <thead>
+            <tr style={{ background: palette.tableHeader }}>
+              {fields.map(f => f.name).map(name => (
+                <th key={name} style={{ textAlign: 'left', padding: 8, border: `1px solid ${palette.tableBorder}` }}>{name}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+          </thead>
+          <tbody>
+            {resultsArray.map((item, i) => (
+              <tr key={i}>
+                {fields.map(f => (
+                  <td key={f.name} style={{ padding: 8, border: `1px solid ${palette.tableBorder}` }}>{String(item[f.name] ?? '')}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
   }
   // Single item
   let parsed = data;
