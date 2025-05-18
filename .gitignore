@@ -22,7 +22,6 @@ __pycache__/
 
 # Docker
 *.pid
-docker-compose-dev.yml
 
 # Misc
 *.swp

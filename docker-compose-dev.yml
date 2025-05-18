@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  backend-dev:
+    build:
+      context: ./backend
+      target: dev
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+    command: [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--reload-dir", "/app" ]
+    networks:
+      app-network:
+        aliases:
+          - backend
+
+  backend-pycharm:
+    build:
+      context: ./backend
+      target: dev
+    volumes:
+      - ./backend:/app
+    environment:
+      - PYTHONPATH=/app
+
+  frontend-dev:
+    build:
+      context: ./frontend
+      target: dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=300
+      - WATCHPACK_POLLING=true
+    networks:
+      - app-network
+    depends_on:
+      - backend-dev
+
+networks:
+  app-network:
+
