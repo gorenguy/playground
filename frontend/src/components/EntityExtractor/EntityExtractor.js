@@ -5,7 +5,7 @@ import { palette, sharedStyles } from '../../styles/theme';
 const FIELD_TYPES = ["string", "number", "boolean"];
 
 function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
-  const [inputFile, setInputFile] = useState(null);
+  const [inputFiles, setInputFiles] = useState([]); // support multiple files
   const [fields, setFields] = useState([
     { name: "", type: "string", required: true, description: "" }
   ]);
@@ -54,7 +54,7 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
   };
 
   const handleSubmit = async () => {
-    if (!inputFile) {
+    if (!inputFiles.length) {
       setOutput("Please upload a file.");
       return;
     }
@@ -63,14 +63,14 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
     try {
       const schema = buildSchema();
       const formData = new FormData();
-      formData.append("file", inputFile);
+      inputFiles.forEach(file => formData.append("files", file));
       formData.append("schema", JSON.stringify(schema));
       const res = await fetch("/api/extract", {
         method: "POST",
         body: formData
       });
       const data = await res.json();
-      setOutput(JSON.stringify(data, null, 2));
+      setOutput(data); // store JSON result
     } catch (err) {
       setOutput("Error: " + err.message);
     }
@@ -304,8 +304,8 @@ function EntityExtractor({ templates, saveTemplates, activeTemplate }) {
         }}>
           <label style={{ fontWeight: sharedStyles.fontWeightBold, fontSize: 16, marginBottom: 8, display: 'block' }}>Upload File</label>
           <input
-            type="file"
-            onChange={e => setInputFile(e.target.files[0])}
+            type="file" multiple
+            onChange={e => setInputFiles(Array.from(e.target.files))}
             style={{
               width: '100%',
               border: `1px solid ${palette.borderAlt}`,

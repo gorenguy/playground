@@ -2,30 +2,48 @@ import React from "react";
 import { palette, sharedStyles } from '../../styles/theme';
 
 function OutputVisualizer({ output, fields }) {
-  let parsed;
-  try {
-    parsed = JSON.parse(output);
-  } catch {
-    return <div style={{ color: palette.danger, fontWeight: sharedStyles.fontWeightBold }}>{output}</div>;
+  // Normalize output to object
+  let data;
+  if (typeof output === 'string') {
+    try { data = JSON.parse(output); }
+    catch { return <div style={{ color: palette.danger, fontWeight: sharedStyles.fontWeightBold }}>{output}</div>; }
+  } else {
+    data = output;
   }
-  if (typeof parsed === 'string') {
-    try {
-      parsed = JSON.parse(parsed);
-    } catch {
-      return <div style={{ color: 'green', fontWeight: sharedStyles.fontWeightBold }}>{parsed}</div>;
-    }
+  // Handle top-level result or nested .result
+  if (data && typeof data === 'object' && data.result !== undefined) {
+    try { data = typeof data.result === 'string' ? JSON.parse(data.result) : data.result; }
+    catch { data = data.result; }
   }
-  if (parsed && typeof parsed === 'object' && parsed.result) {
-    try {
-      parsed = typeof parsed.result === 'string' ? JSON.parse(parsed.result) : parsed.result;
-    } catch {
-      parsed = parsed.result;
-    }
+  // Handle batch results
+  if (data && Array.isArray(data.results) && data.results.length > 1) {
+    return (
+      <table style={{ width: '100%', borderCollapse: 'collapse', background: palette.backgroundAlt, border: `1px solid ${palette.tableBorder}`, borderRadius: sharedStyles.borderRadius, marginTop: 8 }}>
+        <thead>
+          <tr style={{ background: palette.tableHeader }}>
+            {fields.map(f => f.name).map(name => (
+              <th key={name} style={{ textAlign: 'left', padding: 8, border: `1px solid ${palette.tableBorder}` }}>{name}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.results.map((item, i) => (
+            <tr key={i}>
+              {fields.map(f => (
+                <td key={f.name} style={{ padding: 8, border: `1px solid ${palette.tableBorder}` }}>{String(item[f.name] ?? '')}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
   }
+  // Single item
+  let parsed = data;
   if (!parsed || typeof parsed !== 'object') {
     return <div style={{ color: 'green', fontWeight: sharedStyles.fontWeightBold }}>{String(parsed)}</div>;
   }
-  // Order entries by fields order if fields are provided
+  // Order entries by fields and include extras
   let entries;
   if (fields && Array.isArray(fields) && fields.length > 0) {
     entries = fields
